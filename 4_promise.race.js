@@ -27,6 +27,7 @@ function drawHtml(img, title) {
 }
 
 const getFastestLoadedPhoto = (ids) => {
+  setLoader();
   const photos = ids.map((id) => fetch(`${PHOTO_URL}/${id}`));
   Promise.race(photos)
     .then((resp) => {
@@ -43,6 +44,9 @@ const getFastestLoadedPhoto = (ids) => {
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      setLoader();
     });
 };
 
